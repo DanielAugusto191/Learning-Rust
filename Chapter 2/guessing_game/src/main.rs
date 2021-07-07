@@ -13,7 +13,7 @@ fn main() {
         io::stdin().    read_line(&mut guess).expect("Failed to read line");
         let guess: u32 = match guess.trim().parse() {
             Ok(num) => num,
-            Err(_) => println!("Invalid Number! Remember, the secret number is between 0 and 100."),
+            Err(_) => continue,
         };
         println!("You guessed: {}", guess);
         
