@@ -13,16 +13,16 @@ enum skin_color {
     White,
 }
 
-enum List<T: Debug>{
+enum List<T: Debug> {
     Nil,
     Cons(T, Box<List<T>>),
 }
 
-impl <T: Debug>List<T> {
-    fn print(&self){
+impl<T: Debug> List<T> {
+    fn print(&self) {
         match self {
-            | Nil => return,
-            | Cons(X, Y) => {
+            Nil => return,
+            Cons(X, Y) => {
                 println!("{:?}", X);
                 Y.print()
             }
@@ -33,23 +33,26 @@ impl <T: Debug>List<T> {
 struct Person {
     name: String,
     age: i32,
-    skin_color:  skin_color
+    skin_color: skin_color,
 }
 
 #[derive(Debug)]
-enum Food {Rice, Beans}
+enum Food {
+    Rice,
+    Beans,
+}
 
-fn c1(food: Food) -> Option<Food>{
+fn c1(food: Food) -> Option<Food> {
     match food {
-        | Food::Rice => None,
-        | _ => Some(food),
+        Food::Rice => None,
+        _ => Some(food),
     }
 }
 
 fn invert(food: Food) -> Option<Food> {
     match food {
-        | Food::Rice => Some(Food::Beans),
-        | Food::Beans => Some(Food::Rice)
+        Food::Rice => Some(Food::Beans),
+        Food::Beans => Some(Food::Rice),
     }
 }
 
@@ -64,20 +67,22 @@ impl Food {
     }
 }
 
-mod lambda_calc;
 mod church_encoding;
+mod lambda_calc;
+mod teste;
 struct limao(pub i32, pub Option<&'static str>);
-use List::{Nil, Cons};
-fn main() -> Result<(), ()>{
-    let b = limao(12, Some("ok"));
-    println!("{}", b.0);
-    println!("{}", b.1.unwrap());
-    let k: i32 = Default::default();
-    println!("{}", k);
+use List::{Cons, Nil};
+fn main() -> Result<(), ()> {
+    // let b = limao(12, Some("ok"));
+    // println!("{}", b.0);
+    // println!("{}", b.1.unwrap());
+    // let k: i32 = Default::default();
+    // println!("{}", k);
 
-    let b: List<i32> = List::Cons(50, Box::new(List::Cons(51, Box::new(Nil))));
-    b.print();
+    // let b: List<i32> = List::Cons(50, Box::new(List::Cons(51, Box::new(Nil))));
+    // b.print();
     lambda_calc::main();
     church_encoding::main();
+    // teste::main();
     Ok(())
 }

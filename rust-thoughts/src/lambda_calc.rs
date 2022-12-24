@@ -1,9 +1,9 @@
 enum calc {
-    String,
+    Var(String),
     Application(Box<calc>, Box<calc>),
     Abstraction(Box<String>, Box<calc>),
 }
 
-pub fn main(){
+pub fn main() {
     let b = calc::Abstraction;
 }
