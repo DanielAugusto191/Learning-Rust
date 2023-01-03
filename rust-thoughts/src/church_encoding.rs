@@ -96,7 +96,5 @@ pub fn main() {
     let one = Term::App(Box::new(succ_), Box::new(zero_.clone()));
     let mut context = HashMap::new();
     let res = eval(&zero_, &mut context);
-    // println!("{:?}", zero_);
-    // println!("{:?}", one);
     println!("{:?}", res);
 }

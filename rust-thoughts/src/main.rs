@@ -72,6 +72,17 @@ mod lambda_calc;
 mod teste;
 struct limao(pub i32, pub Option<&'static str>);
 use List::{Cons, Nil};
+use std::collections::HashMap;
+fn f(a: &mut HashMap<String, i32>) {
+    let aux = a.get(&"a".to_string());
+    match aux {
+        Some(x) => println!("{}", x),
+        None => panic!("?")
+    }
+    a.insert("b".to_string(), 20);
+    println!("{}", a.len());
+}
+
 fn main() -> Result<(), ()> {
     // let b = limao(12, Some("ok"));
     // println!("{}", b.0);
@@ -81,8 +92,12 @@ fn main() -> Result<(), ()> {
 
     // let b: List<i32> = List::Cons(50, Box::new(List::Cons(51, Box::new(Nil))));
     // b.print();
-    lambda_calc::main();
-    church_encoding::main();
+  //  lambda_calc::main();
+//    church_encoding::main();
     // teste::main();
+    let mut a = HashMap::new();
+    a.insert("a".to_string(), 20);
+    f(&mut a);
+    println!("{}", a.len());
     Ok(())
 }
