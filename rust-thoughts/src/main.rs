@@ -69,7 +69,6 @@ impl Food {
 
 mod church_encoding;
 mod lambda_calc;
-mod teste;
 struct limao(pub i32, pub Option<&'static str>);
 use List::{Cons, Nil};
 use std::collections::HashMap;
@@ -93,11 +92,7 @@ fn main() -> Result<(), ()> {
     // let b: List<i32> = List::Cons(50, Box::new(List::Cons(51, Box::new(Nil))));
     // b.print();
   //  lambda_calc::main();
-//    church_encoding::main();
-    // teste::main();
-    let mut a = HashMap::new();
-    a.insert("a".to_string(), 20);
-    f(&mut a);
-    println!("{}", a.len());
+    church_encoding::main();
+//    teste::main();
     Ok(())
 }

@@ -3,7 +3,7 @@ use std::{collections::HashMap, task::Context};
 #[derive(Debug, Clone)]
 enum Term {
     Var(String),
-    Abs(String, Box<Term>),
+   Abs(String, Box<Term>),
     App(Box<Term>, Box<Term>),
 }
 fn eval(term: &Term, mut context: &mut HashMap<String, Term>) -> Term {
@@ -11,15 +11,15 @@ fn eval(term: &Term, mut context: &mut HashMap<String, Term>) -> Term {
         Term::Var(X) => {
             let b = context.get(X);
             match b {
-                | Some(X) => return X.clone(),
-                | None => panic!("no var in this context"),
+                Some(X) => X.clone(),
+                None => Term::Var(X.to_string()),
             }
         }
         Term::Abs(X, Y) => Term::Abs(X.clone(), Box::new(eval(Y, context))),
         Term::App(X, Y) => {
             let eval_func = eval(X, &mut context);
             let eval_agr = eval(Y, &mut context);
-
+            println!("{:?}", eval_func);
             match eval_func {
                 Term::Abs(X, Y) => {
                     context.insert(X.clone(), eval_agr);
@@ -56,7 +56,7 @@ fn _F<'a, T>(x: &'a T, y: &'a T) -> &'a T {
 //     x(y, Box::new(_F))
 // }
 fn zero<T>(x: T, y: T) -> T {
-    y
+        y
 }
 fn one<T>(x: fn(T) -> T, y: T) -> T {
     x(y)
@@ -80,21 +80,24 @@ pub fn main() {
     let succ_ = Term::Abs(
         "n".to_string(),
         Box::new(Term::Abs(
-            "s".to_string(),
+            "f".to_string(),
             Box::new(Term::Abs(
-                "z".to_string(),
+                "x".to_string(),
                 Box::new(Term::App(
+                    Box::new(Term::Var("f".to_string())),
                     Box::new(Term::App(
-                        Box::new(Term::Var("s".to_string())),
-                        Box::new(Term::Var("n".to_string())),
+Box::new(Term::App(Box::new(Term::Var("n".to_string())), Box::new(Term::Var("f".to_string())))),
+                        Box::new(Term::Var("x".to_string())),
                     )),
-                    Box::new(Term::Var("z".to_string())),
                 )),
             )),
         )),
     );
-    let one = Term::App(Box::new(succ_), Box::new(zero_.clone()));
+    let one = Term::App(Box::new(succ_.clone()), Box::new(zero_.clone()));
+    let l = Term::Var("X".to_string());
+    let p = Term::App(Box::new(Term::Abs("x".to_string(), Box::new(Term::Var("x".to_string())))), Box::new(Term::Var("k".to_string())));
     let mut context = HashMap::new();
     let res = eval(&zero_, &mut context);
-    println!("{:?}", res);
+//    let res = eval(&zero_, &mut context);
+   println!("{:?}", res);
 }
