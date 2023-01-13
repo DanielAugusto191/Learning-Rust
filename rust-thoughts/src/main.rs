@@ -69,6 +69,7 @@ impl Food {
 
 mod church_encoding;
 mod lambda_calc;
+mod data_inconsistencie;
 struct limao(pub i32, pub Option<&'static str>);
 use List::{Cons, Nil};
 use std::collections::HashMap;
@@ -82,6 +83,10 @@ fn f(a: &mut HashMap<String, i32>) {
     println!("{}", a.len());
 }
 
+fn id<T>(x: T) -> T{
+    x
+}
+
 fn main() -> Result<(), ()> {
     // let b = limao(12, Some("ok"));
     // println!("{}", b.0);
@@ -92,7 +97,9 @@ fn main() -> Result<(), ()> {
     // let b: List<i32> = List::Cons(50, Box::new(List::Cons(51, Box::new(Nil))));
     // b.print();
   //  lambda_calc::main();
-    church_encoding::main();
+ //   church_encoding::main();
+        data_inconsistencie::main();
 //    teste::main();
+    println!("{:?}", id(true));
     Ok(())
 }
